@@ -22,6 +22,18 @@
             .material-icons
               subscriptions
             Events
+        %li
+          = link_to resources_all_path('checks') do
+            .material-icons
+              done
+            Checks
+        %li
+          = link_to resources_all_path('alerts') do
+            .material-icons
+              alarm
+            Alerts
+
+
       - else
         %li
           = link_to login_path do
