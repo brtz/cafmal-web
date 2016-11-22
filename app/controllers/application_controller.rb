@@ -15,9 +15,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
     def cafmal_request_expired?
-      unless @cafmal_request.nil?
-        @cafmal_request.expired?
+      unless @cafmal_auth.nil?
+        @cafmal_auth.expired?
       end
     end
 

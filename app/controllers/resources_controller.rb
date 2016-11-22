@@ -3,9 +3,8 @@ class ResourcesController < AuthenticationController
 
   def all
     @title = @resource.titleize
-    @cafmal_request = Cafmal::Request.new(@resource, current_user.token, {})
-    @cafmal_request.call
-    @resources = @cafmal_request.response
+    @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
+    @resources = Oj.load(@cafmal_resource.list)
   end
 
   def show

@@ -34,6 +34,8 @@ gem 'httparty'
 gem 'oj'
 gem 'oj_mimic_json'
 
+gem 'cafmal', git: "https://github.com/brtz/cafmal-lib-ruby.git"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
