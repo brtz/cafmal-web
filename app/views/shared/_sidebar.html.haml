@@ -10,20 +10,22 @@
         %li
           = link_to resources_all_path('users') do
             .material-icons
-              dashboard
+              person
             Users
         %li
           = link_to resources_all_path('teams') do
             .material-icons
-              dashboard
+              people
             Teams
         %li
           = link_to resources_all_path('events') do
             .material-icons
-              dashboard
+              subscriptions
             Events
       - else
         %li
           = link_to login_path do
             %i.fa.fa-dashboard.fa-fw
+            .material-icons
+              lock_open
             Login
