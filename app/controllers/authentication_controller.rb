@@ -4,15 +4,16 @@ class AuthenticationController < ApplicationController
   end
 
   def logout
+    @cafmal_auth = Cafmal::Auth.new(Rails.application.secrets.cafmal_api_url)
+    @cafmal_auth.logout(cookies[:cafmal_api_token])
     delete_cafmal_api_token
-    #@cafmal_auth.logout
     flash[:notice] = "Farewell!"
     redirect_to login_path
   end
 
   def auth
     @cafmal_auth = Cafmal::Auth.new(Rails.application.secrets.cafmal_api_url)
-    @cafmal_auth.login( user_params[:email], user_params[:password] )
+    @cafmal_auth.login(user_params[:email], user_params[:password])
 
     unless @cafmal_auth.token.nil?
       flash[:notice] = "Successfully logged in"
