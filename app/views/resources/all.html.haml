@@ -1,0 +1,14 @@
+- unless @resources.blank?
+  .table-responsive
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          - @resources.first.keys.each do |key|
+            %th
+              = key.titleize
+      %tbody
+        - @resources.each do |resource|
+          %tr
+          - resource.keys.each do |key|
+            %th
+              = resource[key]

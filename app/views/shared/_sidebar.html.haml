@@ -1,0 +1,29 @@
+.navbar-default.sidebar{role: :navigation}
+  .sidebar-nav.navbar-collapse
+    %ul#side-menu.nav
+      - if current_user.signed_in?
+        %li
+          = link_to dashboard_path do
+            .material-icons
+              dashboard
+            Dashboard
+        %li
+          = link_to resources_all_path('users') do
+            .material-icons
+              dashboard
+            Users
+        %li
+          = link_to resources_all_path('teams') do
+            .material-icons
+              dashboard
+            Teams
+        %li
+          = link_to resources_all_path('events') do
+            .material-icons
+              dashboard
+            Events
+      - else
+        %li
+          = link_to login_path do
+            %i.fa.fa-dashboard.fa-fw
+            Login

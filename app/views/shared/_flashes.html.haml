@@ -1,0 +1,6 @@
+.row
+  .col-lg-12
+    - flash.each do |msg_type, message|
+      .alert.alert-dismissable{class: bootstrap_class_for(msg_type)}
+        %button.close{aria: {hidden: true}, data: {dismiss: :alert}, type: :button} ×
+        = message

@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title CafmalWeb
+    = csrf_meta_tags
+    = stylesheet_link_tag   'https://fonts.googleapis.com/icon?family=Material+Icons','application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    #wrapper
+      %nav.navbar.navbar-default.navbar-static-top{role: :navigation, style: "margin-bottom: 0"}
+        .navbar-header
+          %button.navbar-toggle{ data: { target: ".navbar-collapse" , toggle: :collapse}, type: "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'Cafmal-Web', dashboard_path, class: 'navbar-brand'
+        %ul.nav.navbar-top-links.navbar-right
+          %li.dropdown
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              .material-icons
+                more_vert
+            %ul.dropdown-menu.dropdown-user
+              - if current_user.signed_in?
+                %li
+                  = link_to logout_path, method: :delete do
+                    .material-icons
+                      power_settings_new
+                    Logout
+              %li
+                = link_to 'About','#'
+        = render partial: "shared/sidebar"
+      #page-wrapper
+        .row
+          .col-lg-12
+            %h1.page-header
+              = @title
+            = render partial: "shared/flashes"
+            = yield
