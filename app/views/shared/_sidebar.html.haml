@@ -36,6 +36,16 @@
               .material-icons
                 people
               Teams
+          %li
+            = link_to resources_index_path('workers') do
+              .material-icons
+                work
+              Workers
+          %li
+            = link_to resources_index_path('alerters') do
+              .material-icons
+                email
+              Alerters
       - else
         %li
           = link_to login_path do
