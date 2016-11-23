@@ -34,7 +34,10 @@
                       power_settings_new
                     Logout
               %li
-                = link_to 'About','#'
+                = link_to '#' do
+                  .material-icons
+                    info
+                  About
         = render partial: "shared/sidebar"
       #page-wrapper
         .row
