@@ -24,6 +24,11 @@
             %ul.dropdown-menu.dropdown-user
               - if current_user.signed_in?
                 %li
+                  = link_to settings_path do
+                    .material-icons
+                      settings
+                    Settings
+                %li
                   = link_to logout_path, method: :delete do
                     .material-icons
                       power_settings_new

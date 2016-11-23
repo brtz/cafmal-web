@@ -10,5 +10,6 @@
         - @resources.each do |resource|
           %tr
           - resource.keys.each do |key|
+            - resource_class = resource[key].class
             %th
-              = resource[key]
+              = try_to_convert_to_date(resource[key])
