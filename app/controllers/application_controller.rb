@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_action :set_default_page_title
   before_action :authenticate_user!
 
   def current_user
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+    def set_default_page_title
+      @title = "#{params[:controller].titleize} - #{params[:action].titleize}"
+    end
 
     def cafmal_request_expired?
       unless @cafmal_auth.nil?

@@ -1,26 +1,27 @@
 class ResourcesController < AuthenticationController
   before_action :set_resource
 
-  def all
+  def index
     @title = @resource.titleize
-    @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
     @resources = Oj.load(@cafmal_resource.list)
+  end
+
+  def new
+
   end
 
   def show
     id = params[:id]
-    @cafmal_request = Cafmal::Request.new("#{@resource}/" + id, current_user.token, {})
-    @cafmal_request.call
-    @resources = @cafmal_request.response
+    @cafmal_resource = @cafmal_resource.show(id)
+    @resource = Oj.load(@cafmal_resource)
   end
 
   def create
-    @cafmal_request = Cafmal::Request.new(@resource, current_user.token, {})
-    @cafmal_request.call
   end
 
   private
     def set_resource
       @resource = params[:resource]
+      @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
     end
 end

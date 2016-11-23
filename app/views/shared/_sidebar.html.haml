@@ -8,32 +8,34 @@
               dashboard
             Dashboard
         %li
-          = link_to resources_all_path('users') do
-            .material-icons
-              person
-            Users
-        %li
-          = link_to resources_all_path('teams') do
-            .material-icons
-              people
-            Teams
-        %li
-          = link_to resources_all_path('events') do
+          = link_to resources_index_path('events') do
             .material-icons
               subscriptions
             Events
         %li
-          = link_to resources_all_path('checks') do
+          = link_to resources_index_path('checks') do
             .material-icons
               done
             Checks
         %li
-          = link_to resources_all_path('alerts') do
+          = link_to resources_index_path('alerts') do
             .material-icons
               alarm
             Alerts
-
-
+        - if current_user.admin?
+          %li.spacer
+          %li.dropdown-header
+            Administration
+          %li
+            = link_to resources_index_path('users') do
+              .material-icons
+                person
+              Users
+          %li
+            = link_to resources_index_path('teams') do
+              .material-icons
+                people
+              Teams
       - else
         %li
           = link_to login_path do

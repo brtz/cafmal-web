@@ -41,6 +41,7 @@ gem 'cafmal', git: "https://github.com/brtz/cafmal-lib-ruby.git"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'listen'
   gem 'byebug', platform: :mri
 end
 

@@ -16,5 +16,18 @@
  */
 
 .material-icons {
-  vertical-align: bottom;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.navbar-top-links .dropdown-menu li a {
+    padding: 10px 15px;
+}
+
+.dropdown-header {
+  font-size: 100%;
+}
+
+.spacer {
+  height: 50px;
 }
