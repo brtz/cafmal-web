@@ -46,6 +46,11 @@
               .material-icons
                 email
               Alerters
+          %li
+            = link_to resources_index_path('datasources') do
+              .material-icons
+                folder
+              Datasources
       - else
         %li
           = link_to login_path do
