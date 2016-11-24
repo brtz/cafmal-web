@@ -14,4 +14,13 @@ module ApplicationHelper
       return string
     end
   end
+
+  def night_theme?
+    start   = Time.now.strftime("%H").to_i
+    if start >= 18 || start <= 8
+      return 'dark-theme'
+    else
+      return ''
+    end
+  end
 end

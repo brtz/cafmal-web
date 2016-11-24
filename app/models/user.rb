@@ -1,10 +1,14 @@
 class User
-  attr_accessor :token, :id, :exp, :role
+  attr_accessor :token, :id, :exp, :role, :firstname, :lastname, :team_id, :email
 
   @token = nil
   @id = nil
   @exp = 0
   @role = nil
+  @firstname = nil
+  @lastname = nil
+  @team_id = nil
+  @email = nil
 
   def initialize(token)
     @token = token
@@ -14,6 +18,10 @@ class User
       @id = decoded_token["sub"]
       @exp = decoded_token["exp"]
       @role = decoded_token["role"]
+      @firstname = decoded_token["firstname"]
+      @lastname = decoded_token["lastname"]
+      @team_id = decoded_token["team_id"]
+      @email = decoded_token["email"]
     end
   end
 
