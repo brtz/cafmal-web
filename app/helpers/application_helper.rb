@@ -17,7 +17,7 @@ module ApplicationHelper
 
   def night_theme?
     start   = Time.now.strftime("%H").to_i
-    if start >= 18 || start <= 8
+    if start >= 18 || start < 8
       return 'dark-theme'
     else
       return ''
