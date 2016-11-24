@@ -41,6 +41,14 @@
   color: white;
 }
 
+#page-wrapper {
+  border-left: 0px;
+}
+
+.sidebar {
+  border-right: 1px solid #e7e7e7;
+}
+
 .dark-theme,
 .dark-theme .sidebar,
 .dark-theme .navbar,
@@ -49,6 +57,10 @@
 .dark-theme .dropdown-menu {
     background: #252830;
     color: white;
+}
+
+.dark-theme .table-striped>tbody>tr:nth-of-type(odd) {
+  background: #1d2028;
 }
 
 .dark-theme .btn,

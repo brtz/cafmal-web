@@ -6,10 +6,16 @@
           - @resources.first.keys.each do |key|
             %th
               = key.titleize
+          %th
       %tbody
         - @resources.each do |resource|
           %tr
-          - resource.keys.each do |key|
-            - resource_class = resource[key].class
-            %th
-              = try_to_convert_to_date(resource[key])
+            - resource.keys.each do |key|
+              - resource_class = resource[key].class
+              %td
+                = try_to_convert_to_date(resource[key])
+            %td
+              = link_to resources_edit_path(@resource, resource["id"]) do
+                .material-icons
+                  edit
+= link_to "New #{@resource.to_s.singularize.titleize}", resources_new_path, class: "btn"

@@ -13,10 +13,11 @@ Rails.application.routes.draw do
   namespace :resources, path: "/" do
     scope ":resource" do
       get '/', action: :index, as: :index
+      get '/new', action: :new, as: :new
+      post '/create', action: :create, as: :create
+      post '/update', action: :update, as: :update  
       get '/:id', action: :show, as: :show
       get '/:id/edit', action: :edit, as: :edit
-      get '/new', action: :edit, as: :new
-      post '/create', action: :create, as: :create
     end
   end
 
