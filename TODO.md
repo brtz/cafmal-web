@@ -21,6 +21,9 @@
  - T: current time in header (utc!)
  - T: konami code (unicorn theme?!)
  - T: maybe somehow info texts on inputs (explaining shit)
+ - T: add rake-attack (with redis_store) to web (rate limit logins here as well!)
+ - T: remove edit/create buttons if you are not allowed to do that (mapping role from payload against action)
+ - T: on relation fields, query for the select options (e.g. on checks, field datasource: Cafmal::Datasource.list)
 
 # @OUTOFSCOPE
  - T: sidekiq workers
