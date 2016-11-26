@@ -15,9 +15,11 @@ Rails.application.routes.draw do
       get '/', action: :index, as: :index
       get '/new', action: :new, as: :new
       post '/create', action: :create, as: :create
-      post '/update', action: :update, as: :update  
+      post '/update', action: :update, as: :update
+      post '/destroy', action: :destroy, as: :destroy
       get '/:id', action: :show, as: :show
       get '/:id/edit', action: :edit, as: :edit
+      get '/:id/confirm_destroy', action: :confirm_destroy, as: :confirm_destroy
     end
   end
 

@@ -57,6 +57,30 @@ class ResourcesController < AuthenticationController
     end
   end
 
+  def confirm_destroy
+    @title = "Confirm destruction of #{@resource.singularize.titleize}"
+    id = params[:id]
+    @cafmal_resource = @cafmal_resource.show(id)
+    @resource_json = Oj.load(@cafmal_resource)
+  end
+
+  def destroy
+    @title = "Destroy #{@resource.singularize.titleize}"
+    resource_params = params_validate
+    save = @cafmal_resource.destroy(resource_params)
+    @json_errors = JSON.parse(save)
+    if @json_errors.key?("exception")
+      exception = @json_errors["exception"]
+      @json_errors = {"error" => [exception.to_s]}
+    end
+    if @json_errors.blank?
+      flash[:success] = "#{@resource.singularize.titleize} successfully destroyed."
+      redirect_to resources_index_path(@resource)
+    else
+      render action: :new
+    end
+  end
+
   private
     def set_resource
       @resource_json = nil

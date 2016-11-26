@@ -1,0 +1,11 @@
+= simple_form_for @resource, url: resources_destroy_path do |f|
+  - unless @json_errors.blank?
+    .alert.alert-danger
+      - @json_errors.each do |key, msg|
+        = "#{key.titleize} #{msg.join(",")}"
+        %br
+  - unless @resource_json.blank?
+    = f.input :id, as: :hidden, input_html: { value: @resource_json["id"] }
+  - @form_structure.each do |key, value|
+    = f.input key, as: value, readonly: true, input_html: { value: (@resource_json.blank? ? nil : @resource_json[key]) }
+  = f.submit "Destroy #{@resource.to_s.singularize.titleize}",class: "btn"
