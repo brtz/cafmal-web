@@ -7,8 +7,10 @@
   - unless @resource_json.blank?
     = f.input :id, as: :hidden, input_html: { value: @resource_json["id"] }
   - @form_structure.each do |key, value|
-    - params_value = (params[@resource.to_sym].blank? ? nil : (params[@resource.to_sym][key.to_sym].blank? ? nil : params[@resource.to_sym][key.to_sym]))
+    - params_value = (params[@resource.to_sym].blank? ? nil : (params[@resource.to_sym][key.to_sym].blank? ? (@resource_json.blank? ? nil : @resource_json[key]) : params[@resource.to_sym][key.to_sym]))
     - if value.to_s == "boolean"
       = f.input key, as: :hidden, input_html: { value: false }
-    = f.input key, as: value, input_html: { value: (@resource_json.blank? ? params_value : @resource_json[key]) }
+      = f.input key, as: value, input_html: { value: true, checked: (@resource_json.blank? ? params_value : @resource_json[key]) }
+    - else
+      = f.input key, as: value, input_html: { value: (@resource_json.blank? ? params_value : @resource_json[key]) }
   = f.submit "Save #{@resource.to_s.singularize.titleize}",class: "btn"

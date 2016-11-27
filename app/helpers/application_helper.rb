@@ -15,9 +15,9 @@ module ApplicationHelper
       rescue Exception => e
       end
     elsif key.include?("is_")
-      return_val = (string == "0" ? "No" : "Yes")
+      return_val = (string == false ? "No" : "Yes")
     elsif string.blank?
-      return_val = "-"  
+      return_val = "-"
     end
 
     return return_val
