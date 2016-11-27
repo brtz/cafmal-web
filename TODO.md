@@ -1,12 +1,12 @@
 # @ISSUE
- - I: alert creation fails with "undefined method join for 1:Fixnum" form.html.haml:5
-      this might also happen on other resources with fixnums. The alert is created in API
  - I: password digest as datetime, should be string (needed for manual admin reset of user pw)
- - I: error handling is a mess. rely on http status codes.
 
 # @TODO
 
- - I: checkboxes are not send, if not marked on edit/create (also leads to failing changes because booleans are missing)
+- T: alert creation fails with "undefined method join for 1:Fixnum" form.html.haml:5
+     this might also happen on other resources with fixnums. The alert is created in API
+ - T: error handling is a mess. rely on http status codes.
+ - T: checkboxes are not send, if not marked on edit/create (also leads to failing changes because booleans are missing)
  - T: if fieldname_includes "severity": input select info, warning, critical, error
  - T: filter deleted events by default (checkbox on top of table to enable "show deleted")
  - T: view events: filter for timeframe (age, duration, e.g. show me 7200s ago, the events for 3600s)

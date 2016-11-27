@@ -13,7 +13,7 @@
             - resource.keys.each do |key|
               - resource_class = resource[key].class
               %td
-                = try_to_convert_to_date(resource[key])
+                = try_to_conver_resouce(key, resource[key])
             %td
               = link_to resources_edit_path(@resource, resource["id"]) do
                 .material-icons
