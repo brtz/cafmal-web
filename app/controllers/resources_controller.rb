@@ -22,10 +22,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.update(resource_params)
     @json_errors = JSON.parse(save)
-    if @json_errors.key?("exception")
-      exception = @json_errors["exception"]
-      @json_errors = {"error" => [exception.to_s]}
-    end
+    @json_errors = handle_errors_by_status_code(@json_errors)
     if @json_errors.blank? || @json_errors.class != "String"
       flash[:success] = "#{@resource.singularize.titleize} successfully updated."
       redirect_to resources_index_path(@resource)
@@ -45,10 +42,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.create(resource_params)
     @json_errors = JSON.parse(save)
-    if @json_errors.key?("exception")
-      exception = @json_errors["exception"]
-      @json_errors = {"error" => [exception.to_s]}
-    end
+    @json_errors = handle_errors_by_status_code(@json_errors)
     if @json_errors.blank?
       flash[:success] = "#{@resource.singularize.titleize} successfully created."
       redirect_to resources_index_path(@resource)
@@ -69,10 +63,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.destroy(resource_params)
     @json_errors = JSON.parse(save)
-    if @json_errors.key?("exception")
-      exception = @json_errors["exception"]
-      @json_errors = {"error" => [exception.to_s]}
-    end
+    @json_errors = handle_errors_by_status_code(@json_errors)
     if @json_errors.blank?
       flash[:success] = "#{@resource.singularize.titleize} successfully destroyed."
       redirect_to resources_index_path(@resource)
@@ -82,6 +73,16 @@ class ResourcesController < AuthenticationController
   end
 
   private
+    def handle_errors_by_status_code(json_errors)
+      if json_errors.key?("exception")
+        exception = json_errors["exception"]
+        json_errors = {"error" => [exception.to_s]}
+      elsif json_errors.key?("message")
+        json_errors = {message: [json_errors["message"]]}  
+      end
+      json_errors
+    end
+
     def set_resource
       @resource_json = nil
       @resource = params[:resource]
