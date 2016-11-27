@@ -21,4 +21,6 @@
               = link_to resources_confirm_destroy_path(@resource, resource["id"]) do
                 .material-icons
                   delete
-= link_to "New #{@resource.to_s.singularize.titleize}", resources_new_path, class: "btn"
+= link_to resources_new_path do
+  %button.btn
+    = "New #{@resource.to_s.singularize.titleize}"
