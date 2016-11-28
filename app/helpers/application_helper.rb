@@ -7,7 +7,7 @@ module ApplicationHelper
       { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type.to_sym] || flash_type.to_s
   end
 
-  def try_to_conver_resouce(key = "", string = "")
+  def try_to_convert_resouce(key = "", string = "")
     return_val = string
     if key.include?("_at") || key.include?("since")
       begin

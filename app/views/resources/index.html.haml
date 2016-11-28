@@ -1,3 +1,20 @@
+.row
+  = simple_form_for :query, method: :get do |f|
+    .col-lg-6
+      - if @resource == "events"
+        .col-lg-5
+          = f.input :age, as: :integer, input_html: { value: @query_age }
+        .col-lg-5
+          = f.input :duration, as: :integer, input_html: { value: @query_duration }
+        .col-lg-2
+          %br/
+          = f.button :button, class: "btn" do
+            .material-icons
+              search
+    .col-lg-4
+    .col-lg-2
+      %br
+      = f.input :without_deleted_entries, as: :boolean, label: "Show without deleted #{@resource}", input_html: { checked: @without_deleted_entries}
 - unless @resources.blank?
   .table-responsive
     %table.table.table-striped.table-bordered.table-hover
@@ -13,7 +30,7 @@
             - resource.keys.each do |key|
               - resource_class = resource[key].class
               %td
-                = try_to_conver_resouce(key, resource[key])
+                = try_to_convert_resouce(key, resource[key])
             %td
               = link_to resources_edit_path(@resource, resource["id"]) do
                 .material-icons

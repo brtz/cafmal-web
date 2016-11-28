@@ -14,3 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap.min
+
+$(document).on("change", "#query_without_deleted_entries", function() {
+  $(".simple_form.query").submit();
+});

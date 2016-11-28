@@ -3,7 +3,19 @@ class ResourcesController < AuthenticationController
 
   def index
     @title = @resource.titleize
-    @resources = Oj.load(@cafmal_resource.list)
+    query ||= params["query"]
+    @query_duration =  (query.blank? ? 3600 : query["duration"])
+    @query_age = (query.blank? ? 3600 : query["age"])
+    @without_deleted_entries = (query.blank? ? false : (query["without_deleted_entries"] == "1"))
+    if @resource == "events"
+      @resources = Oj.load(@cafmal_resource.list(@query_age, @query_duration))
+      @resources = @resources.sort_by { |hsh| hsh[:id] }.reverse
+    else
+      @resources = Oj.load(@cafmal_resource.list)
+    end
+    if @without_deleted_entries
+      @resources.delete_if{|i|!i["deleted_at"].blank?}
+    end
   end
 
   def new
@@ -78,7 +90,7 @@ class ResourcesController < AuthenticationController
         exception = json_errors["exception"]
         json_errors = {"error" => [exception.to_s]}
       elsif json_errors.key?("message")
-        json_errors = {message: [json_errors["message"]]}  
+        json_errors = {message: [json_errors["message"]]}
       end
       json_errors
     end
