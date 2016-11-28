@@ -6,14 +6,14 @@ class ResourcesController < AuthenticationController
     query ||= params["query"]
     @query_duration =  (query.blank? ? 3600 : query["duration"])
     @query_age = (query.blank? ? 3600 : query["age"])
-    @without_deleted_entries = (query.blank? ? false : (query["without_deleted_entries"] == "1"))
+    @show_deleted_resources = (query.blank? ? false : (query["show_deleted_resources"] == "1"))
     if @resource == "events"
       @resources = Oj.load(@cafmal_resource.list(@query_age, @query_duration))
       @resources = @resources.sort_by { |hsh| hsh[:id] }.reverse
     else
       @resources = Oj.load(@cafmal_resource.list)
     end
-    if @without_deleted_entries
+    if !@show_deleted_resources
       @resources.delete_if{|i|!i["deleted_at"].blank?}
     end
   end

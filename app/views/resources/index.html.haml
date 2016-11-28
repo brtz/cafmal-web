@@ -11,10 +11,10 @@
           = f.button :button, class: "btn" do
             .material-icons
               search
-    .col-lg-4
-    .col-lg-2
+    .col-lg-5
+    .col-lg-1
       %br
-      = f.input :without_deleted_entries, as: :boolean, label: "Show without deleted #{@resource}", input_html: { checked: @without_deleted_entries}
+      = f.input :show_deleted_resources, as: :boolean, label: "Show deleted #{@resource}", input_html: { checked: @show_deleted_resources}
 - unless @resources.blank?
   .table-responsive
     %table.table.table-striped.table-bordered.table-hover
