@@ -13,7 +13,11 @@ class AuthenticationController < ApplicationController
 
   def auth
     @cafmal_auth = Cafmal::Auth.new(Rails.application.secrets.cafmal_api_url)
-    @cafmal_auth.login(user_params[:email], user_params[:password])
+    begin
+      @cafmal_auth.login(user_params[:email], user_params[:password])
+    rescue Exception => e
+      flash[:alert] = "Ähhhm Nope, API DOWN !!"
+    end
 
     unless @cafmal_auth.token.nil?
       flash[:notice] = "Successfully logged in"
