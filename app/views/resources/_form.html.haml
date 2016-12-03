@@ -11,6 +11,8 @@
     - if value.to_s == "boolean"
       = f.input key, as: :hidden, input_html: { value: false }
       = f.input key, as: value, input_html: { value: true, checked: (@resource_json.blank? ? params_value : @resource_json[key]) }
+    - elsif value.class.name == "Hash"
+      = f.input key, collection: value
     - else
       = f.input key, as: value, input_html: { value: (@resource_json.blank? ? params_value : @resource_json[key]) }
   = f.submit "Save #{@resource.to_s.singularize.titleize}",class: "btn"
