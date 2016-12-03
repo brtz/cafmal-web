@@ -86,11 +86,13 @@ class ResourcesController < AuthenticationController
 
   private
     def handle_errors_by_status_code(json_errors)
-      if json_errors.key?("exception")
-        exception = json_errors["exception"]
-        json_errors = {"error" => [exception.to_s]}
-      elsif json_errors.key?("message")
-        json_errors = {message: [json_errors["message"]]}
+      unless json_errors.nil?
+        if json_errors.key?("exception")
+          exception = json_errors["exception"]
+          json_errors = {"error" => [exception.to_s]}
+        elsif json_errors.key?("message")
+          json_errors = {message: [json_errors["message"]]}
+        end
       end
       json_errors
     end
