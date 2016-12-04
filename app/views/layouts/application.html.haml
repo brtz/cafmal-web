@@ -46,7 +46,8 @@
         .container-fluid.xyz
           .row
             .col-lg-12
-              %h1.page-header
-                = @title
+              - unless @title.nil?
+                %h1.page-header
+                  = @title
               = render partial: "shared/flashes"
               = yield

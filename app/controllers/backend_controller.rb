@@ -1,6 +1,6 @@
 class BackendController < AuthenticationController
   def dashboard
-    @title = "Dashboard"
+    @title = nil
 
     # @resource = "events"
     # @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
