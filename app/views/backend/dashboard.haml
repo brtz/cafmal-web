@@ -1,17 +1,41 @@
 .row
-  .col-lg-3
-    .bigbox
-      %b UTC:
-      %span#utc
-  .col-lg-3
-    .bigbox
-      %b Los Angeles:
-      %span#los_angeles
-  .col-lg-3
-    .bigbox
-      %b New York:
-      %span#new_york
-  .col-lg-3
-    .bigbox
-      %b Hong Kong:
-      %span#hong_kong
+  .col-lg-3.col-md-6
+    .panel.panel-primary
+      .panel-heading
+        .row
+          .col-xs-3
+            .material-icons.fa-5x
+              access_time
+          .col-xs-9.text-right
+            .huge#utc
+            %div UTC
+  .col-lg-3.col-md-6
+    .panel.panel-green
+      .panel-heading
+        .row
+          .col-xs-3
+            .material-icons.fa-5x
+              access_time
+          .col-xs-9.text-right
+            .huge#los_angeles
+            %div Los Angeles
+  .col-lg-3.col-md-6
+    .panel.panel-yellow
+      .panel-heading
+        .row
+          .col-xs-3
+            .material-icons.fa-5x
+              access_time
+          .col-xs-9.text-right
+            .huge#new_york
+            %div New York
+  .col-lg-3.col-md-6
+    .panel.panel-red
+      .panel-heading
+        .row
+          .col-xs-3
+            .material-icons.fa-5x
+              access_time
+          .col-xs-9.text-right
+            .huge#hong_kong
+            %div Hong Kong

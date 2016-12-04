@@ -87,5 +87,5 @@ function initTimezones() {
 
 document.addEventListener("turbolinks:load", function() {
   initTimezones();
-  setTimeout(function(){ if (!$("#wrapper").hasClass("toggled-2")) {collapseMenu();} }, 15000);
+  //setTimeout(function(){ if (!$("#wrapper").hasClass("toggled-2")) {collapseMenu();} }, 15000);
 });

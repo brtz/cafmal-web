@@ -66,6 +66,10 @@ li .material-icons {
     width: 250px;
 }
 
+.fa-5x {
+    font-size: 5em;
+}
+
 #page-content-wrapper {
     position: absolute;
     padding: 15px;
