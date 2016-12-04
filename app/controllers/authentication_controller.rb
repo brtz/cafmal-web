@@ -16,7 +16,7 @@ class AuthenticationController < ApplicationController
     begin
       @cafmal_auth.login(user_params[:email], user_params[:password])
     rescue Exception => e
-      flash[:alert] = "Ähhhm Nope, API DOWN !!"
+      flash[:alert] = "Auth failed, API is unavailable."
     end
 
     unless @cafmal_auth.token.nil?
