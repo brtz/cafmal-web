@@ -16,6 +16,7 @@
 //= require bootstrap.min
 //= require moment
 //= require moment-timezone
+//= require Chart
 
 function showLocalTime(container, zoneString, formatString){
   if($('#' + container).length > 0) {

@@ -36,6 +36,8 @@ gem 'momentjs-rails'
 gem 'oj'
 gem 'oj_mimic_json'
 
+gem 'chart-js-rails'
+
 gem 'cafmal', git: "https://github.com/brtz/cafmal-lib-ruby.git"
 
 # Use Capistrano for deployment

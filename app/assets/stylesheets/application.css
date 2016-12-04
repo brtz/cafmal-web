@@ -70,6 +70,17 @@ li .material-icons {
     font-size: 5em;
 }
 
+.new_york_banner {
+  background-image: url("newyork.jpg");
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+.timer {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 36px;
+}
+
 #page-content-wrapper {
     position: absolute;
     padding: 15px;

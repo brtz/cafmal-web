@@ -7,7 +7,7 @@
             .material-icons.fa-5x
               access_time
           .col-xs-9.text-right
-            .huge#utc
+            .huge.timer#utc
             %div UTC
   .col-lg-3.col-md-6
     .panel.panel-green
@@ -17,7 +17,7 @@
             .material-icons.fa-5x
               access_time
           .col-xs-9.text-right
-            .huge#los_angeles
+            .huge.timer#los_angeles
             %div Los Angeles
   .col-lg-3.col-md-6
     .panel.panel-yellow
@@ -27,7 +27,7 @@
             .material-icons.fa-5x
               access_time
           .col-xs-9.text-right
-            .huge#new_york
+            .huge.timer#new_york
             %div New York
   .col-lg-3.col-md-6
     .panel.panel-red
@@ -37,5 +37,25 @@
             .material-icons.fa-5x
               access_time
           .col-xs-9.text-right
-            .huge#hong_kong
+            .huge.timer#hong_kong
             %div Hong Kong
+-# .row
+-#   .col-lg-6
+-#     .panel-heading
+-#       Checks
+-#     .panel-body
+-#       %canvas#myChart
+-#       :javascript
+-#         var ctx = document.getElementById('myChart').getContext('2d');
+-#         var myChart = new Chart(ctx, {
+-#           type: 'line',
+-#           data: {
+-#             labels: #{@split_events_label},
+-#             datasets: #{@split_events}
+-#           }
+-#         });
+-# .row
+-#   .col-lg-6
+-#     .panel-heading
+-#       Alerts
+-#     .panel-body
