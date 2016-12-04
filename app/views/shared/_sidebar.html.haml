@@ -1,60 +1,65 @@
-.navbar-default.sidebar{role: :navigation}
-  .sidebar-nav.navbar-collapse
-    %ul#side-menu.nav
-      - if current_user.signed_in?
-        %li
-          = link_to dashboard_path do
-            .material-icons
-              dashboard
-            Dashboard
-        %li
-          = link_to resources_index_path('events') do
-            .material-icons
-              subscriptions
-            Events
-        %li
-          = link_to resources_index_path('checks') do
-            .material-icons
-              done
-            Checks
-        %li
-          = link_to resources_index_path('alerts') do
-            .material-icons
-              alarm
-            Alerts
-        %li
-          = link_to resources_index_path('datasources') do
-            .material-icons
-              folder
-            Datasources
-        - if current_user.admin?
-          %li.spacer
-          %li.dropdown-header
-            Administration
-          %li
-            = link_to resources_index_path('users') do
-              .material-icons
-                person
-              Users
-          %li
-            = link_to resources_index_path('teams') do
-              .material-icons
-                people
-              Teams
-          %li
-            = link_to resources_index_path('workers') do
-              .material-icons
-                work
-              Workers
-          %li
-            = link_to resources_index_path('alerters') do
-              .material-icons
-                email
-              Alerters
-      - else
-        %li
-          = link_to login_path do
-            %i.fa.fa-dashboard.fa-fw
-            .material-icons
-              lock_open
-            Login
+%ul#menu.sidebar-nav.nav-pills.nav-stacked
+  - if current_user.signed_in?
+    %li
+      = link_to dashboard_path do
+        .material-icons
+          dashboard
+        Dashboard
+    %li
+      = link_to resources_index_path('events') do
+        .material-icons
+          subscriptions
+        Events
+    %li
+      = link_to resources_index_path('checks') do
+        .material-icons
+          done
+        Checks
+    %li
+      = link_to resources_index_path('alerts') do
+        .material-icons
+          alarm
+        Alerts
+    - if current_user.admin?
+      %li.spacer
+      %li.dropdown-header
+        .material-icons
+        Administration
+      %li
+        = link_to resources_index_path('users') do
+          .material-icons
+            person
+          Users
+      %li
+        = link_to resources_index_path('teams') do
+          .material-icons
+            people
+          Teams
+      %li
+        = link_to resources_index_path('workers') do
+          .material-icons
+            work
+          Workers
+      %li
+        = link_to resources_index_path('alerters') do
+          .material-icons
+            email
+          Alerters
+      %li
+        = link_to resources_index_path('datasources') do
+          .material-icons
+            folder
+          Datasources
+  - else
+    %li
+      = link_to login_path do
+        %i.fa.fa-dashboard.fa-fw
+        .material-icons
+          lock_open
+        Login
+  %li
+    = link_to "#", id: "menu-toggle-2" do
+      .material-icons
+        chevron_left
+      %span
+        Collapse Menu

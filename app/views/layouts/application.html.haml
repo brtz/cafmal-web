@@ -6,22 +6,18 @@
     = csrf_meta_tags
     = stylesheet_link_tag   'https://fonts.googleapis.com/icon?family=Material+Icons','application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body{class: "#{night_theme?}"}
-    #wrapper
-      %nav.navbar.navbar-default.navbar-static-top{role: :navigation, style: "margin-bottom: 0"}
-        .navbar-header
-          %button.navbar-toggle{ data: { target: ".navbar-collapse" , toggle: :collapse}, type: "button"}
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to 'Cafmal-Web', dashboard_path, class: 'navbar-brand'
-        - if current_user.signed_in?
-          %ul.nav.navbar-top-links.navbar-left.user_info
-            %li
-              = link_to "#" do
-                = "#{current_user.email} (#{current_user.firstname} #{current_user.lastname})"
-        %ul.nav.navbar-top-links.navbar-right
+  %body
+    %nav.navbar.navbar-default.no-margin
+      .navbar-header.fixed-brand
+        %button#menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse", :type => "button"}
+          %span.glyphicon.glyphicon-th-large{"aria-hidden" => "true"}
+        = link_to "/", class: "navbar-brand" do
+          Cafmal-Web
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        %ul.nav.navbar-nav.navbar-right
+          %li
+            = link_to "#" do
+              = "#{current_user.email} (#{current_user.firstname} #{current_user.lastname})"
           %li.dropdown
             = link_to "#", class: "dropdown-toggle", data: {toggle: :dropdown} do
               .material-icons
@@ -43,11 +39,14 @@
                   .material-icons
                     info
                   About
+    #wrapper
+      #sidebar-wrapper
         = render partial: "shared/sidebar"
-      #page-wrapper
-        .row
-          .col-lg-12
-            %h1.page-header
-              = @title
-            = render partial: "shared/flashes"
-            = yield
+      #page-content-wrapper
+        .container-fluid.xyz
+          .row
+            .col-lg-12
+              %h1.page-header
+                = @title
+              = render partial: "shared/flashes"
+              = yield

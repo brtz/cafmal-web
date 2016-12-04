@@ -31,6 +31,8 @@ gem 'simple_form'
 
 gem 'httparty'
 
+gem 'momentjs-rails'
+
 gem 'oj'
 gem 'oj_mimic_json'
 
