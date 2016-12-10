@@ -29,6 +29,10 @@ class User
     @role == "admin"
   end
 
+  def lead?
+    @role == "lead"
+  end
+
   def minutes_til_expiration
     expired_at = Time.at(@exp.to_i).utc
     ((expired_at - Time.now.utc) / 60).to_i

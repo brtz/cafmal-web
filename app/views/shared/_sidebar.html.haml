@@ -20,7 +20,7 @@
         .material-icons
           alarm
         Alerts
-    - if current_user.admin?
+    - if current_user.admin? || current_user.lead?
       %li.spacer
       %li.dropdown-header
         .material-icons
@@ -30,26 +30,27 @@
           .material-icons
             person
           Users
-      %li
-        = link_to resources_index_path('teams') do
-          .material-icons
-            people
-          Teams
-      %li
-        = link_to resources_index_path('workers') do
-          .material-icons
-            work
-          Workers
-      %li
-        = link_to resources_index_path('alerters') do
-          .material-icons
-            email
-          Alerters
-      %li
-        = link_to resources_index_path('datasources') do
-          .material-icons
-            folder
-          Datasources
+      - if current_user.admin?
+        %li
+          = link_to resources_index_path('teams') do
+            .material-icons
+              people
+            Teams
+        %li
+          = link_to resources_index_path('workers') do
+            .material-icons
+              work
+            Workers
+        %li
+          = link_to resources_index_path('alerters') do
+            .material-icons
+              email
+            Alerters
+        %li
+          = link_to resources_index_path('datasources') do
+            .material-icons
+              folder
+            Datasources
   - else
     %li
       = link_to login_path do
