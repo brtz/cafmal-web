@@ -71,7 +71,7 @@ class ResourcesController < AuthenticationController
     save = @cafmal_resource.create(resource_params)
     @json_errors = JSON.parse(save)
     @json_errors = handle_errors_by_status_code(@json_errors)
-    if @json_errors.blank?
+    if @json_errors.blank? || @json_errors.has_key?("id")
       flash[:success] = "#{@resource.singularize.titleize} successfully created."
       redirect_to resources_index_path(@resource)
     else
