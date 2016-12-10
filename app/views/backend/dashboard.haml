@@ -43,7 +43,7 @@
   .col-lg-6
     .panel.panel-default
       .panel-heading
-        Checks
+        Events from checks (last 60 minutes)
       .panel-body
         %canvas#myChart
         :javascript
@@ -51,6 +51,21 @@
           var myChart = new Chart(ctx, {
             type: 'bubble',
             responsive: true,
+            options: {
+              legend: {
+                position: 'left',
+                reverse: true
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                      min: 0,
+                      max: #{@max_events},
+                      stepSize: 1
+                  }
+                }]
+              }
+            },
             data: #{@events_data}
           });
   .col-lg-6

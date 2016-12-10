@@ -12,21 +12,24 @@ class BackendController < AuthenticationController
     event_labels = []
 
     @events.each do |event_hash|
-      event_labels << event_hash["name"]
+      next unless event_hash['kind'] == 'check'
+      event_labels << event_hash['name']
     end
 
     event_labels.uniq!
 
     datasets = []
 
+    j = 1
     event_labels.each do |event_label|
       data = []
       i = 5
-      j = 1
       color_as_number = (Digest::MD5.hexdigest(event_label).to_i(16))
-      opacity = 1.00 - ((1.00 / color_as_number.to_s[0..2].to_i) * 100.00)
+      opacity = 1 - ((color_as_number.to_f % 100) / 100)
       bgcolor = ""
+      bordercolor = "##{Digest::MD5.hexdigest(event_label).to_s[0..5]}"
       @events.each do |event_hash|
+        next unless event_hash['kind'] == 'check'
         if event_hash["name"] == event_label
           data << {x: (event_hash["created_at"].to_datetime.to_i - DateTime.now.utc.to_i) / 60, y: j, r: i}
 
@@ -40,16 +43,16 @@ class BackendController < AuthenticationController
           when "error"
             bgcolor = "rgba(0,0,0, #{opacity})"
           end
-          i += 0.75
-          j += 1
+          i += 1
         end
       end
-      datasets << { label: event_label, data: data, backgroundColor: bgcolor }
-
+      datasets << { label: event_label, data: data, backgroundColor: bgcolor, borderColor: bordercolor, borderWidth: 2}
+      j += 1
     end
 
     events_data = { datasets: datasets }
 
     @events_data  = Oj.dump(events_data)
+    @max_events = j
   end
 end
