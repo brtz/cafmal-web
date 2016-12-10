@@ -1,85 +1,55 @@
 class BackendController < AuthenticationController
   def dashboard
+    require 'digest/md5'
+
     @title = "Dashboard"
 
     @resource = "events"
     @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
-    @events = Oj.load(@cafmal_resource.list(86400, 86400))
-    @events = @events.stable_sort_by { |hsh| hsh[:id] }.reverse
+    @events = Oj.load(@cafmal_resource.list(3600, 3600))
+    @events = @events.stable_sort_by { |hsh| hsh[:id] }
 
-    split_events = []
+    event_labels = []
 
-    out = {}
-    @events.each do |a_hash|
-      out[a_hash["name"]] ||= []
-      out[a_hash["name"]] << a_hash
+    @events.each do |event_hash|
+      event_labels << event_hash["name"]
     end
 
-    @split_events_label = []
+    event_labels.uniq!
 
-    background_colors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3", "#4CAF50", "#FF9800", "#FFEB3B", "#76FF03"]
-    data_labels = {}
+    datasets = []
 
-    new_data = {}
-
-    error_types = []
-
-    background_colors = []
-
-    out.keys.each do |key|
-      new_data[key] ||= Hash.new(0)
-      data_out = out[key]
-
-      severity_names = {}
-      data_out.each do |da|
-        severity_names[da["severity"]] ||= 0
-        severity_names[da["severity"]] += 1
-        error_types << da["severity"]
-      end
-      new_data[key] = severity_names
-    end
-
-    error_types = error_types.uniq
-    error_types.each do |a|
-      @split_events_label << a
-      if a == "critical"
-        background_colors << "red"
-      elsif a == "warning"
-        background_colors << "yellow"
-      elsif a == "info"
-        background_colors << "gray"
-      elsif a == "error"
-        background_colors << "black"
-      end
-    end
-
-    new_data.each do |sn|
+    event_labels.each do |event_label|
       data = []
-      error_types.each do |err_type|
-        data << sn.last[err_type].to_i
-      end
+      i = 5
+      j = 1
+      color_as_number = (Digest::MD5.hexdigest(event_label).to_i(16))
+      opacity = 1.00 - ((1.00 / color_as_number.to_s[0..2].to_i) * 100.00)
+      bgcolor = ""
+      @events.each do |event_hash|
+        if event_hash["name"] == event_label
+          data << {x: (event_hash["created_at"].to_datetime.to_i - DateTime.now.utc.to_i) / 60, y: j, r: i}
 
-      split_events << {label: sn.first, data: data, backgroundColor: background_colors}
+          case event_hash["severity"]
+          when "info"
+            bgcolor = "rgba(63, 81, 181, #{opacity})"
+          when "warning"
+            bgcolor = "rgba(255, 235, 59, #{opacity})"
+          when "critical"
+            bgcolor = "rgba(244, 67, 54, #{opacity})"
+          when "error"
+            bgcolor = "rgba(0,0,0, #{opacity})"
+          end
+          i += 0.75
+          j += 1
+        end
+      end
+      datasets << { label: event_label, data: data, backgroundColor: bgcolor }
+
     end
 
-    @split_events = Oj.dump(split_events)
+    events_data = { datasets: datasets }
 
-    # out.keys.each do |key|
-    #   data = []
-    #
-    #   data_out = out[key]
-    #   i = 0
-    #   data_out.each do |da|
-    #     #data_labels[da["created_at"].to_datetime.strftime("%Y.%m.%d %H")] = ""
-    #     i += 1
-    #     data << da
-    #     #data << 1 #da["created_at"].to_datetime.to_i
-    #   end
-    #
-    #   split_events << {label: key, data: data, backgroundColor: background_colors.sample}
-    # end
-    # @split_events_label = data_labels.keys
-    #
-    # @split_events = Oj.dump(split_events)
+    @events_data  = Oj.dump(events_data)
   end
 end

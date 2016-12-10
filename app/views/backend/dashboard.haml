@@ -49,72 +49,9 @@
         :javascript
           var ctx = document.getElementById('myChart').getContext('2d');
           var myChart = new Chart(ctx, {
-            type: 'horizontalBar',
+            type: 'bubble',
             responsive: true,
-            data: {
-                labels: #{@split_events_label},
-                datasets: #{@split_events}
-            },
-            options: {
-              tooltips: {
-                  enabled: true
-              },
-              hover :{
-                  animationDuration:0
-              },
-              scales: {
-                  xAxes: [{
-                      ticks: {
-                          beginAtZero: true,
-                          fontFamily: "'Open Sans Bold', sans-serif",
-                          fontSize:11
-                      },
-                      scaleLabel:{
-                          display: false
-                      },
-                      gridLines: {
-
-                      },
-                      stacked: true
-                  }],
-                  yAxes: [{
-                      gridLines: {
-                          
-                      },
-                      ticks: {
-                          fontFamily: "'Open Sans Bold', sans-serif",
-                          fontSize:11
-                      },
-                      stacked: true
-                  }]
-              },
-              legend:{
-                  display: true
-              },
-              animation: {
-                  onComplete: function () {
-                      var chartInstance = this.chart;
-                      var ctx = chartInstance.ctx;
-                      ctx.textAlign = "left";
-                      ctx.font = "10px Open Sans";
-                      ctx.fillStyle = "#fff";
-
-                      Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
-                          var meta = chartInstance.controller.getDatasetMeta(i);
-                          Chart.helpers.each(meta.data.forEach(function (bar, index) {
-                              data = dataset.data[index];
-                              if(i==0){
-                                  ctx.fillText(data, 50, bar._model.y+4);
-                              } else {
-                                  ctx.fillText(data, bar._model.x-25, bar._model.y+4);
-                              }
-                          }),this)
-                      }),this);
-                  }
-              },
-              pointLabelFontFamily : "Quadon Extra Bold",
-              scaleFontFamily : "Quadon Extra Bold",
-            }
+            data: #{@events_data}
           });
   .col-lg-6
     .panel.panel-default
