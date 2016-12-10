@@ -16,6 +16,22 @@ class ResourcesController < AuthenticationController
     if !@show_deleted_resources
       @resources.delete_if{|i|!i["deleted_at"].blank?}
     end
+
+    if @resource == "events"
+      @search_options = {
+        form_obj: :query, show_deleted_resources: true,
+        fields: {
+          age: {
+            value: @query_age, type: :integer
+          },
+          duration: {
+            value: @query_duration, type: :integer
+          }
+        }
+      }
+    else
+        @search_options = {form_obj: :query, show_deleted_resources: true}
+    end
   end
 
   def new
@@ -100,8 +116,13 @@ class ResourcesController < AuthenticationController
     def set_resource
       @resource_json = nil
       @resource = params[:resource]
-      @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
-      @form_structure = JSON.parse(@cafmal_resource.new)
+      begin
+        @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
+        @form_structure = JSON.parse(@cafmal_resource.new)
+      rescue Exception => e
+        flash[:error] = "API is unavailable."
+        redirect_back(fallback_location: :back)
+      end
     end
 
     def params_validate

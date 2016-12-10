@@ -4,7 +4,7 @@
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title CafmalWeb
     = csrf_meta_tags
-    = stylesheet_link_tag   'https://fonts.googleapis.com/icon?family=Material+Icons|Roboto+Mono','application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag   'https://fonts.googleapis.com/icon?family=Material+Icons|Roboto+Mono|Open+Sans','application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     %nav.navbar.navbar-default.no-margin
@@ -14,10 +14,25 @@
         = link_to "/", class: "navbar-brand" do
           Cafmal-Web
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
-        %ul.nav.navbar-nav.navbar-right
+        %ul.nav.navbar-nav
+          %li.nav-page-header
+            - unless @title.nil?
+              = @title
           %li
-            = link_to "#" do
-              = "#{current_user.email} (#{current_user.firstname} #{current_user.lastname})"
+          - if !@resource.blank? && action_name != "new" && action_name != "dashboard"
+            %li
+              = link_to resources_new_path do
+                .btn.btn-default
+                  = "New #{@resource.to_s.singularize.titleize}"
+        %ul.nav.navbar-nav.navbar-right
+          - if current_user.signed_in?
+            %li
+              = link_to refresh_login_path do
+                .btn.btn-default
+                  = "Refresh Login Button"
+            %li
+              = link_to "#" do
+                = "#{current_user.email} (#{current_user.firstname} #{current_user.lastname})"
           %li.dropdown
             = link_to "#", class: "dropdown-toggle", data: {toggle: :dropdown} do
               .material-icons
@@ -44,10 +59,24 @@
         = render partial: "shared/sidebar"
       #page-content-wrapper
         .container-fluid.xyz
+          = render partial: "shared/flashes"
+          - unless @search_options.blank?
+            .search_options
+              .row
+                = simple_form_for @search_options[:form_obj], method: :get do |f|
+                  .col-lg-11
+                    - unless @search_options[:fields].blank?
+                      - @search_options[:fields].each do |field|
+                        .col-lg-3
+                          = f.input field.first, as: field.last[:type], input_html: { value: field.last[:value] }
+                      %br/
+                      = f.button :button, class: "btn" do
+                        .material-icons
+                          search
+                  .col-lg-1
+                    - if @search_options[:show_deleted_resources]
+                      %br
+                      = f.input :show_deleted_resources, as: :boolean, label: "Show deleted #{@resource}", input_html: { checked: @show_deleted_resources}
           .row
             .col-lg-12
-              - unless @title.nil?
-                %h1.page-header
-                  = @title
-              = render partial: "shared/flashes"
               = yield

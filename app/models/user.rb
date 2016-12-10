@@ -29,6 +29,11 @@ class User
     @role == "admin"
   end
 
+  def minutes_til_expiration
+    expired_at = Time.at(@exp.to_i).utc
+    ((expired_at - Time.now.utc) / 60).to_i
+  end
+
   def expired?
     expired_at = Time.at(@exp.to_i).utc.to_datetime
     expired_at.past?

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get 'login', to: 'authentication#login', as: :login
     delete 'logout', to: 'authentication#logout', as: :logout
     post 'auth', to: 'authentication#auth', as: :auth
+    get 'refresh_login', to: 'authentication#refresh_login', as: :refresh_login
   end
 
   scope :settings do
@@ -22,6 +23,5 @@ Rails.application.routes.draw do
       get '/:id/confirm_destroy', action: :confirm_destroy, as: :confirm_destroy
     end
   end
-
   root to: 'backend#dashboard', as: :dashboard
 end
