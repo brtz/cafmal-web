@@ -78,10 +78,10 @@ function initMenu() {
 }
 
 function initTimezones() {
-  new showLocalTime("utc", "UTC", "hh:mm:ss A (ddd)");
-  new showLocalTime("los_angeles", "America/Los_Angeles", "hh:mm:ss A (ddd)");
-  new showLocalTime("new_york", "America/New_York", "hh:mm:ss A (ddd)");
-  new showLocalTime("hong_kong", "Asia/Hong_Kong", "hh:mm:ss A (ddd)");
+  new showLocalTime("utc", "UTC", "HH:mm:ss (ddd)");
+  new showLocalTime("los_angeles", "America/Los_Angeles", "HH:mm:ss (ddd)");
+  new showLocalTime("new_york", "America/New_York", "HH:mm:ss (ddd)");
+  new showLocalTime("hong_kong", "Asia/Hong_Kong", "HH:mm:ss (ddd)");
 }
 
 
