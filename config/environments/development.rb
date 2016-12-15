@@ -56,7 +56,7 @@ Rails.application.configure do
                         compress_javascript: true,
                         css_compressor: :yui,
                         javascript_compressor: :yui,
-                        enabled: true,
+                        enabled: false,
                         preserve_line_breaks: false,
                         remove_comments: true,
                         remove_form_attributes: false,
