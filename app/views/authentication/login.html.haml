@@ -3,8 +3,8 @@
   .col-md-4
     .panel.panel-default
       .panel-body
-        = simple_form_for(:user, url: auth_path) do |f|
-          = f.input :email, label: false, placeholder: "Email"
-          = f.input :password, label: false, placeholder: "Password"
+        = simple_form_for(:user, url: auth_path, html: { novalidate: false }) do |f|
+          = f.input :email, as: :email, label: false, placeholder: "Email", required: true
+          = f.input :password, label: false, placeholder: "Password", required: true
           = f.button :submit, 'Log In'
   .col-md-4

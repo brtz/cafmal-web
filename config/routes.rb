@@ -7,8 +7,12 @@ Rails.application.routes.draw do
     get 'refresh_login', to: 'authentication#refresh_login', as: :refresh_login
   end
 
-  scope :settings do
-    get '/', to: 'settings#index', as: :settings
+  scope :settings, controller: :settings do
+    get '/', action: :index, as: :settings
+  end
+
+  scope :sites, controller: :sites do
+    get 'about', as: :about
   end
 
   namespace :resources, path: "/" do

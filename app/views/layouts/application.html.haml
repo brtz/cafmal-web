@@ -6,7 +6,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag   'https://fonts.googleapis.com/icon?family=Material+Icons|Roboto+Mono|Open+Sans','application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
+  %body{class: "#{controller_name} #{action_name}"}
     %nav.navbar.navbar-default.no-margin
       .navbar-header.fixed-brand
         %button#menu-toggle.navbar-toggle.collapsed{"data-toggle" => "collapse", :type => "button"}
@@ -51,7 +51,7 @@
                       power_settings_new
                     Logout
               %li
-                = link_to '#' do
+                = link_to about_path do
                   .material-icons
                     info
                   About
@@ -79,5 +79,5 @@
                       %br
                       = f.input :show_deleted_resources, as: :boolean, label: "Show deleted #{@resource}", input_html: { checked: @show_deleted_resources}
           .row
-            .col-lg-12
+            .col-lg-12.page-content
               = yield

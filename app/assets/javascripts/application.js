@@ -45,6 +45,12 @@ $(document).on("click", "input[type=submit]", function () {
   $btn.button('reset');
 });
 
+window.setTimeout(function() {
+    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+        $(this).remove(); 
+    });
+}, 5000);
+
 $(document).on("click", "#menu-toggle", function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
