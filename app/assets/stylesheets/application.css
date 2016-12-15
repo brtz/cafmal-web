@@ -15,8 +15,45 @@
  *= require_self
  */
 
+.nav-page-header, label {
+  color: #112d4e;
+ }
+
 .bigbox {
   font-size: 20px;
+}
+
+.alert {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  color: black;
+}
+
+.alert-danger {
+  border-top: 3px solid #D50000;
+}
+
+.alert-success {
+  border-top: 3px solid #4CAF50;
+}
+
+.alert-warning {
+  border-top: 3px solid #FFEB3B;
+}
+
+.alert-info {
+  border-top: 3px solid #2196F3;
+}
+
+.table-responsiv, .panel {
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+}
+
+.panel.chart .panel-heading {
+  background: #112d4e;
+  color: white;
 }
 
 .material-icons {
@@ -124,6 +161,10 @@ li .material-icons {
   background: white;
 }
 
+.btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover {
+  color: #112d4e;
+}
+
 .nav-page-header {
   margin-left: 30px;
   font-size: 34px;
@@ -158,6 +199,7 @@ li .material-icons {
     text-decoration: none;
     color: #fff;
     background: rgba(255,255,255,0.2);
+    border-radius: 0;
 }
 
 .sidebar-nav li a:active,
@@ -166,10 +208,14 @@ li .material-icons {
 }
 
 .string:focus, .password:focus, .email:focus, .boolean input:focus, .btn:focus, .integer:focus, select:focus, textarea:focus {
-    border: 2px solid #3d7ccd !important;
+    border: 1px solid #112d4e !important;
     outline: 0 !important;
-    border-radius: 2px !important;
-    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.3),0px 0px 0px 1px #69f !important;
+    border-radius: 0px !important;
+    box-shadow: none;
+}
+
+.shadow {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-nav > .sidebar-brand {
@@ -197,7 +243,7 @@ li .material-icons {
 }
 
 .sidebar-nav li {
-  padding: 5px 5px 5px 0px;
+  padding: 5px 0px 5px 0px;
   border-radius: 0;
 }
 
@@ -238,7 +284,17 @@ li .material-icons {
   width: 100%;
 }
 
+@media(max-width: 468px) {
+  .fixed-brand {
+    width: 100%;
+  }
+}
+
 @media(min-width:768px) {
+    .login-page {
+      margin-top: 100px;
+    }
+
     #wrapper {
         padding-left: 250px;
     }
@@ -299,6 +355,38 @@ li .material-icons {
         width: auto;
 
     }
+}
+
+
+.btn {
+  letter-spacing: 1px;
+  text-decoration: none;
+  background: none;
+  font-size:14px;
+  line-height:20px;
+  font-weight: 500;
+  text-transform:uppercase;
+  border: 1px solid;
+  padding:8px 20px;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn:hover,
+.btn:active {
+  color: #FFF;
+  background: #112d4e;
+  border-color: #112d4e;
+}
+
+.form-control {
+  letter-spacing: 1px;
+  border-radius: 0;
+  font-size:14px;
+  line-height:20px;
+  height: 40px;
 }
 
 .dark-theme,

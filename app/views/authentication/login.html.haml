@@ -1,6 +1,10 @@
-.panel.panel-default
-  .panel-body
-    = simple_form_for(:user, url: auth_path) do |f|
-      = f.input :email
-      = f.input :password
-      = f.button :submit, 'Log In'
+.container.login-page
+  .col-md-4
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        = simple_form_for(:user, url: auth_path) do |f|
+          = f.input :email, label: false, placeholder: "Email"
+          = f.input :password, label: false, placeholder: "Password"
+          = f.button :submit, 'Log In'
+  .col-md-4

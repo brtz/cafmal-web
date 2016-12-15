@@ -38,6 +38,13 @@ $(document).on("change", "#query_show_deleted_resources", function() {
   $(".simple_form.query").submit();
 });
 
+$(document).on("click", "input[type=submit]", function () {
+  var $btn = $(this);
+  $btn.attr("data-disable-with", "Loading...");
+  $btn.button('loading');
+  $btn.button('reset');
+});
+
 $(document).on("click", "#menu-toggle", function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
