@@ -44,7 +44,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :error
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -74,6 +74,27 @@ Rails.application.configure do
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+
+   config.middleware.use HtmlCompressor::Rack,
+                        compress_css: true,
+                        compress_javascript: true,
+                        css_compressor: :yui,
+                        enabled: true,
+                        preserve_line_breaks: false,
+                        remove_comments: true,
+                        remove_form_attributes: false,
+                        remove_http_protocol: false,
+                        remove_https_protocol: false,
+                        remove_input_attributes: false,
+                        remove_intertag_spaces: false,
+                        remove_javascript_protocol: true,
+                        remove_link_attributes: true,
+                        remove_multi_spaces: true,
+                        remove_quotes: true,
+                        remove_script_attributes: true,
+                        remove_style_attributes: true,
+                        simple_boolean_attributes: true,
+                        simple_doctype: false
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)

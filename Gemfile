@@ -25,6 +25,8 @@ gem 'turbolinks', '~> 5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'htmlcompressor'
+
 gem "haml-rails"
 
 gem 'simple_form'

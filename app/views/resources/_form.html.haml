@@ -15,4 +15,4 @@
       = f.input key, collection: value.keys, selected: (@resource_json.blank? ? params_value : @resource_json[key])
     - else
       = f.input key, as: value, input_html: { value: (@resource_json.blank? ? params_value : @resource_json[key]) }
-  = f.submit "Save #{@resource.to_s.singularize.titleize}",class: "btn"
+  = f.button :submit "Save #{@resource.to_s.singularize.titleize}"
