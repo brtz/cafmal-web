@@ -381,7 +381,7 @@ li .material-icons {
 .btn {
   letter-spacing: 1px;
   text-decoration: none;
-  background: none;
+  background: white;
   font-size:14px;
   line-height:20px;
   font-weight: 500;
