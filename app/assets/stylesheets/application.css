@@ -54,6 +54,14 @@
   border-top: 3px solid #2196F3;
 }
 
+
+button[type=reset] {
+  float: right;
+  background: #D50000;
+  color: white;
+}
+
+
 .table-responsiv, .panel {
   box-shadow: 0px 1px 0px rgba(0,0,0,0.5);
   border-radius: 0;
