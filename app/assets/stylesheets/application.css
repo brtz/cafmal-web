@@ -409,6 +409,66 @@ li .material-icons {
   height: 40px;
 }
 
+.btn-box {
+  width: 247px;
+  display: inline-block;
+  position: relative;
+  margin: 0 25px;
+  background-color: #FDFDFD;
+  border: 1px solid #CFCFCF;
+  color: #AEAEAE;
+  -moz-transition: border-color 0.3s, background-color 0.3s, color 0.3s, box-shadow 0.2s;
+  -o-transition: border-color 0.3s, background-color 0.3s, color 0.3s, box-shadow 0.2s;
+  -webkit-transition: border-color 0.3s, background-color 0.3s, color 0.3s, box-shadow 0.2s;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s, box-shadow 0.2s;
+}
+
+.btn-box.is-active, .btn-box:hover, .btn-box:focus {
+  color: #468FE6;
+  border-color: #112d4e;
+  text-decoration: none;
+}
+
+.btn-box .btn-title {
+  font-size: 18px;
+  color: inherit;
+  margin-top: 50px;
+}
+
+.rounded--3 {
+  border-radius: 3px;
+}
+
+.page-icon {
+  background-image: url(/assets/elasti_graphana_sprite.png);
+}
+
+.btn-box .btn-image {
+  width: 200px;
+  height: 65px;
+  margin: 40px auto 40px auto;
+  display: block;
+  background-repeat: no-repeat;
+}
+
+.page-grafana {
+  background-position: 0px 5px;
+}
+
+.page-elastic {
+  background-position: 0px -60px;
+  opacity: 0.7;
+}
+
+.is-active .page-grafana, .btn-box:hover .page-grafana, .btn-box:focus .page-grafana {
+  background-position: 0px -135px;
+}
+
+.is-active .page-elastic, .btn-box:hover .page-elastic, .btn-box:focus .page-elastic {
+  background-position: 0px -200px;
+  opacity: 1;
+}
+
 .dark-theme,
 .dark-theme .sidebar,
 .dark-theme .navbar,
