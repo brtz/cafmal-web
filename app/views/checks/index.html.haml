@@ -1,7 +1,7 @@
 - unless @resources.blank?
   .row.box-group
     - @resources.each do |resource|
-      .col-md-2
+      .col-md-3
         .box{class: resource["severity"] + " " +  (resource["condition_aggregator"].to_s.split("_").first() unless resource["condition_aggregator"].nil?)}
           .box-header
             .box-icon
@@ -9,52 +9,55 @@
               = try_to_convert_resouce("name", resource["name"]).to_s.titleize      
             .clearfix  
           .box-content
-            %table.table.table-striped.table-bordered.table-hover
-              %tbody
-                %tr
-                  %th
-                    Aggregator
-                  %td   
-                    = try_to_convert_resouce("condition_aggregator", resource["condition_aggregator"]).to_s
-                %tr
-                  %th
-                    Operator
-                  %td 
-                    = try_to_convert_resouce("condition_operator", resource["condition_operator"]).to_s
-                %tr
-                  %th
-                    Value
-                  %td 
-                    = try_to_convert_resouce("condition_value", resource["condition_value"]).to_s
-                %tr
-                  %th
-                    Url
-                  %td
-                    = try_to_convert_resouce("documentation_url", resource["documentation_url"]).to_s
-                %tr
-                  %th
-                    Updated At
-                  %td
-                    = try_to_convert_resouce("updated_at", resource["updated_at"]).to_s   
+            .table-responsive
+              %table.table.table-striped.table-bordered.table-hover
+                %tbody
+                  %tr
+                    %th
+                      Aggregator
+                    %td   
+                      = try_to_convert_resouce("condition_aggregator", resource["condition_aggregator"]).to_s
+                  %tr
+                    %th
+                      Operator
+                    %td 
+                      = try_to_convert_resouce("condition_operator", resource["condition_operator"]).to_s
+                  %tr
+                    %th
+                      Value
+                    %td 
+                      = try_to_convert_resouce("condition_value", resource["condition_value"]).to_s
+                  %tr
+                    %th
+                      Url
+                    %td
+                      = try_to_convert_resouce("documentation_url", resource["documentation_url"]).to_s
+                  %tr
+                    %th
+                      Updated At
+                    %td
+                      = try_to_convert_resouce("updated_at", resource["updated_at"]).to_s   
           .box-footer
             .row
               .col-md-6
-                .material-icons
-                  - if resource["is_locked"] == false
-                    lock_open
-                  - else
-                    lock_outline  
-                .material-icons
-                  timer
-                = try_to_convert_resouce("interval", resource["interval"]).to_s  
-              .col-md-3
-              .col-md-3
-                = link_to resources_edit_path(@resource, resource["id"]) do
+                .left
                   .material-icons
-                    mode_edit
-                = link_to resources_confirm_destroy_path(@resource, resource["id"]) do
+                    - if resource["is_locked"] == false
+                      lock_open
+                    - else
+                      lock_outline  
                   .material-icons
-                    delete  
+                    timer
+                  = try_to_convert_resouce("interval", resource["interval"]).to_s  
+                  = "s"
+              .col-md-6
+                .right
+                  = link_to resources_edit_path(@resource, resource["id"]) do
+                    .material-icons
+                      mode_edit
+                  = link_to resources_confirm_destroy_path(@resource, resource["id"]) do
+                    .material-icons
+                      delete  
           .clearfix      
   .clearfix      
 = link_to resources_new_path do

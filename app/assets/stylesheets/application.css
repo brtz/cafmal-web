@@ -485,6 +485,14 @@ li .material-icons {
   background-position: 0px -200px;
 }
 
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
 .box.influxdb .box-icon {
   background-position: 0px -335px;
 }
