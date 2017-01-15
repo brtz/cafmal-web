@@ -17,6 +17,8 @@
           - value.keys.each do |v_key|
             = link_to "#", class: "btn-box rounded-3 " + ((@resource_json.blank? ? params_value : @resource_json[key]) == v_key ? "is-active" : ""), data: {select_value: v_key, target: "#datasources_sourcetype"} do 
               .btn-image.page-icon{class: "page-#{v_key}"}  
+              .btn-title
+                = v_key.titleize
           = f.input key, collection: value.keys, selected: (@resource_json.blank? ? params_value : @resource_json[key]), input_html: {class: "hidden"}, label: false
       - else
         = f.input key, collection: value.keys, selected: (@resource_json.blank? ? params_value : @resource_json[key]) 

@@ -461,7 +461,8 @@ li .material-icons {
 .btn-box .btn-title {
   font-size: 18px;
   color: inherit;
-  margin-top: 50px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .rounded--3 {
@@ -469,20 +470,20 @@ li .material-icons {
 }
 
 .page-icon {
-  background-image: url(/assets/datasources_sprites.png);
+  background-image: url(/assets/datasource_icons_sprite.png);
 }
 
 .box-icon {
   float: left;
-  background-image: url(/assets/datasources_sprites.png);
-  height: 65px;
-  width: 100%;
+  background-image: url(/assets/datasource_icons_sprite.png);
+  height: 75px;
+  width: 75px;
   background-repeat: no-repeat;
   opacity: 0.08;
 }
 
 .box.elasticsearch .box-icon {
-  background-position: 0px -200px;
+  background-position: 0px 0px;
 }
 
 .right {
@@ -494,13 +495,13 @@ li .material-icons {
 }
 
 .box.influxdb .box-icon {
-  background-position: 0px -335px;
+  background-position: 0px -70px;
 }
 
 .btn-box .btn-image {
-  width: 200px;
-  height: 65px;
-  margin: 40px auto 40px auto;
+  width: 75px;
+  height: 75px;
+  margin: 20px auto 20px auto;
   display: block;
   background-repeat: no-repeat;
 }
@@ -510,12 +511,12 @@ li .material-icons {
 }
 
 .page-elasticsearch {
-  background-position: 0px -60px;
+  background-position: -90px 0px;
   opacity: 0.7;
 }
 
 .page-influxdb {
-  background-position: 0px -275px;
+  background-position: -90px -75px;
 }
 
 .is-active .page-grafana, .btn-box:hover .page-grafana, .btn-box:focus .page-grafana {
@@ -523,12 +524,12 @@ li .material-icons {
 }
 
 .is-active .page-elasticsearch, .btn-box:hover .page-elasticsearch, .btn-box:focus .page-elasticsearch {
-  background-position: 0px -200px;
+  background-position: 0px 0px;
   opacity: 1;
 }
 
 .is-active .page-influxdb, .btn-box:hover .page-influxdb, .btn-box:focus .page-influxdb {
-  background-position: 0px -335px;
+  background-position: 0px -75px;
   opacity: 1;
 }
 
@@ -594,5 +595,13 @@ li .material-icons {
 @media screen and (max-width: 768px) {
   .dark-theme .navbar-right .dropdown {
     float: right;
+  }
+
+  .sidebar-nav .dropdown-header {
+    display: none;
+  }
+
+  .toggled .sidebar-nav .dropdown-header {
+    display: block;
   }
 }
