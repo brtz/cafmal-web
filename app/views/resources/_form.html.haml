@@ -12,7 +12,14 @@
       = f.input key, as: :hidden, input_html: { value: false }
       = f.input key, as: value, input_html: { value: true, checked: (@resource_json.blank? ? params_value : @resource_json[key]) }
     - elsif value.class.name == "Hash"
-      = f.input key, collection: value.keys, selected: (@resource_json.blank? ? params_value : @resource_json[key])
+      - if key == "sourcetype"
+        .row
+          - value.keys.each do |v_key|
+            = link_to "#", class: "btn-box rounded-3 " + ((@resource_json.blank? ? params_value : @resource_json[key]) == v_key ? "is-active" : ""), data: {select_value: v_key, target: "#datasources_sourcetype"} do 
+              .btn-image.page-icon{class: "page-#{v_key}"}  
+          = f.input key, collection: value.keys, selected: (@resource_json.blank? ? params_value : @resource_json[key]), input_html: {class: "hidden"}, label: false
+      - else
+        = f.input key, collection: value.keys, selected: (@resource_json.blank? ? params_value : @resource_json[key]) 
     - else
       = f.input key, as: value, input_html: { value: (@resource_json.blank? ? params_value : @resource_json[key]) }
   .row

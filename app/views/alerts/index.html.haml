@@ -1,0 +1,62 @@
+- unless @resources.blank?
+  .row.box-group
+    - @resources.each do |resource|
+      .col-md-2
+        .box{class: resource["minimum_severity"]}
+          .box-header
+            .box-header-content
+              = try_to_convert_resouce("name", resource["name"]).to_s.titleize      
+            .clearfix  
+          .box-content
+            %table.table.table-striped.table-bordered.table-hover
+              %tbody
+                %tr
+                  %th
+                    Alert Method
+                  %td   
+                    = try_to_convert_resouce("alert_method", resource["alert_method"]).to_s
+                %tr
+                  %th
+                    Alert Target
+                  %td 
+                    = try_to_convert_resouce("alert_target", resource["alert_target"]).to_s
+                %tr
+                  %th
+                    Pattern
+                  %td 
+                    = try_to_convert_resouce("pattern", resource["pattern"]).to_s
+                %tr
+                  %th
+                    Updated At
+                  %td
+                    = try_to_convert_resouce("updated_at", resource["updated_at"]).to_s   
+          .box-footer
+            .row
+              .col-md-6
+                .material-icons
+                  - if resource["is_enabled"] == false
+                    alarm_off
+                  - else
+                    alarm_on
+                .material-icons
+                  - if resource["is_silenced"] == false
+                    volume_up
+                  - else
+                    volume_off
+                .material-icons
+                  timer
+                = try_to_convert_resouce("cooldown", resource["cooldown"]).to_s  
+                = "s"
+              .col-md-3
+              .col-md-3
+                = link_to resources_edit_path(@resource, resource["id"]) do
+                  .material-icons
+                    mode_edit
+                = link_to resources_confirm_destroy_path(@resource, resource["id"]) do
+                  .material-icons
+                    delete  
+          .clearfix      
+  .clearfix      
+= link_to resources_new_path do
+  %button.btn.btn-default
+    = "New #{@resource.to_s.singularize.titleize}"

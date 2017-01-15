@@ -128,4 +128,13 @@ class ResourcesController < AuthenticationController
     def params_validate
       params.require(@resource.to_sym).permit((@form_structure.keys << :id))
     end
+
+    def render(*args)
+      template_name = "/#{@resource}/#{action_name}"
+      options = args.extract_options!
+      if template_exists?(action_name, @resource)
+        options[:template] = template_name if action_name == "index"
+      end
+      super(*(args << options))
+    end
 end

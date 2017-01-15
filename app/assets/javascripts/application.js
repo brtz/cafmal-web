@@ -61,6 +61,17 @@ $(document).on("click", "#menu-toggle-2", function(e) {
     collapseMenu();
 });
 
+$(document).on("click", ".btn-box", function(e) {
+  e.preventDefault();
+  $(".btn-box").removeClass("is-active");
+  var data_target = $(this).attr("data-target");
+  var select_value = $(this).attr("data-select-value");
+  console.log($(data_target));
+  console.log(select_value);
+  $(data_target).val(select_value).change();
+  $(this).addClass("is-active");
+});
+
 function collapseMenu() {
   $("#wrapper").toggleClass("toggled-2");
   $('#menu ul').hide();
