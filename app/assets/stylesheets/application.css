@@ -19,6 +19,18 @@
   color: #112d4e;
 }
 
+.material-icons {
+  color: #112d4e;
+}
+
+.nav .btn {
+  padding: 6px 20px;
+}
+
+li .material-icons {
+  color: white;
+}
+
 .sites .page-content .container .panel .panel-body {
   padding: 20px 60px;
 }
