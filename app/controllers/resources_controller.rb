@@ -50,7 +50,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.update(resource_params)
     @json_errors = handle_error_messages(save)
-    if save.response.code.to_i == 200
+    if save.response.code.to_i < 300
       flash[:success] = "#{@resource.singularize.titleize} successfully updated."
       redirect_to resources_index_path(@resource)
     else
@@ -63,7 +63,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.create(resource_params)
     @json_errors = handle_error_messages(save)
-    if save.response.code.to_i == 200
+    if save.response.code.to_i < 300
       flash[:success] = "#{@resource.singularize.titleize} successfully created."
       redirect_to resources_index_path(@resource)
     else
@@ -76,7 +76,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.destroy(resource_params)
     @json_errors = handle_error_messages(save)
-    if save.response.code.to_i == 200
+    if save.response.code.to_i < 300
       flash[:success] = "#{@resource.singularize.titleize} successfully destroyed."
       redirect_to resources_index_path(@resource)
     else
@@ -87,14 +87,14 @@ class ResourcesController < AuthenticationController
   def show
     id = params[:id]
     @cafmal_resource = @cafmal_resource.show(id)
-    @resource_json = Oj.load(@cafmal_resource)
+    @resource_json = Oj.load(@cafmal_resource.body)
   end
 
   def confirm_destroy
     @title = "Confirm destruction of #{@resource.singularize.titleize}"
     id = params[:id]
     @cafmal_resource = @cafmal_resource.show(id)
-    @resource_json = Oj.load(@cafmal_resource)
+    @resource_json = Oj.load(@cafmal_resource.body)
   end
 
 
