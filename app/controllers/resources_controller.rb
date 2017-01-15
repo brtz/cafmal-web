@@ -42,7 +42,7 @@ class ResourcesController < AuthenticationController
     @title = "Edit #{@resource.singularize.titleize}"
     id = params[:id]
     @cafmal_resource = @cafmal_resource.show(id)
-    @resource_json = Oj.load(@cafmal_resource)
+    @resource_json = Oj.load(@cafmal_resource.body)
   end
 
   def update
@@ -50,11 +50,11 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.update(resource_params)
     @json_errors = handle_error_messages(save)
-    if @json_errors.blank?
+    if save.response.code.to_i == 200
       flash[:success] = "#{@resource.singularize.titleize} successfully updated."
       redirect_to resources_index_path(@resource)
     else
-      redirect_to resources_edit_path(@resource, resource_params["id"])
+      render :edit
     end
   end
 
@@ -63,7 +63,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.create(resource_params)
     @json_errors = handle_error_messages(save)
-    if @json_errors.blank?
+    if save.response.code.to_i == 200
       flash[:success] = "#{@resource.singularize.titleize} successfully created."
       redirect_to resources_index_path(@resource)
     else
@@ -76,7 +76,7 @@ class ResourcesController < AuthenticationController
     resource_params = params_validate
     save = @cafmal_resource.destroy(resource_params)
     @json_errors = handle_error_messages(save)
-    if @json_errors.blank?
+    if save.response.code.to_i == 200
       flash[:success] = "#{@resource.singularize.titleize} successfully destroyed."
       redirect_to resources_index_path(@resource)
     else
