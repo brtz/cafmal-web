@@ -6,7 +6,7 @@ class BackendController < AuthenticationController
 
     @resource = "events"
     @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
-    @events = Oj.load(@cafmal_resource.list(3600, 3600))
+    @events = Oj.load(@cafmal_resource.list(3600, 3600).body)
     @events = @events.stable_sort_by { |hsh| hsh[:id] }
 
     event_labels = []

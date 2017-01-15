@@ -10,7 +10,7 @@
     - params_value = (params[@resource.to_sym].blank? ? nil : (params[@resource.to_sym][key.to_sym].blank? ? (@resource_json.blank? ? nil : @resource_json[key]) : params[@resource.to_sym][key.to_sym]))
     - if value.to_s == "boolean"
       = f.input key, as: :hidden, input_html: { value: false }
-      = f.input key, as: value, input_html: { value: true, checked: (@resource_json.blank? ? params_value : @resource_json[key]) }
+      = f.input key, as: value, input_html: { value: true, checked: (@resource_json.blank? ? (params_value.to_i == 1) : @resource_json[key]) }
     - elsif value.class.name == "Hash"
       - if key == "sourcetype"
         .row

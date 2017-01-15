@@ -11,7 +11,7 @@ class ResourcesController < AuthenticationController
       @resources = Oj.load(@cafmal_resource.list(@query_age, @query_duration))
       @resources = @resources.stable_sort_by { |hsh| hsh[:id] }.reverse
     else
-      @resources = Oj.load(@cafmal_resource.list)
+      @resources = Oj.load(@cafmal_resource.list.body)
     end
     if !@show_deleted_resources
       @resources.delete_if{|i|!i["deleted_at"].blank?}
@@ -49,13 +49,38 @@ class ResourcesController < AuthenticationController
     @title = "Update #{@resource.singularize.titleize}"
     resource_params = params_validate
     save = @cafmal_resource.update(resource_params)
-    @json_errors = JSON.parse(save)
-    @json_errors = handle_errors_by_status_code(@json_errors)
-    if @json_errors.blank? || @json_errors.class != "String"
+    @json_errors = handle_error_messages(save)
+    if @json_errors.blank?
       flash[:success] = "#{@resource.singularize.titleize} successfully updated."
       redirect_to resources_index_path(@resource)
     else
       redirect_to resources_edit_path(@resource, resource_params["id"])
+    end
+  end
+
+  def create
+    @title = "Create #{@resource.singularize.titleize}"
+    resource_params = params_validate
+    save = @cafmal_resource.create(resource_params)
+    @json_errors = handle_error_messages(save)
+    if @json_errors.blank?
+      flash[:success] = "#{@resource.singularize.titleize} successfully created."
+      redirect_to resources_index_path(@resource)
+    else
+      render action: :new
+    end
+  end
+
+  def destroy
+    @title = "Destroy #{@resource.singularize.titleize}"
+    resource_params = params_validate
+    save = @cafmal_resource.destroy(resource_params)
+    @json_errors = handle_error_messages(save)
+    if @json_errors.blank?
+      flash[:success] = "#{@resource.singularize.titleize} successfully destroyed."
+      redirect_to resources_index_path(@resource)
+    else
+      render action: :new
     end
   end
 
@@ -65,20 +90,6 @@ class ResourcesController < AuthenticationController
     @resource_json = Oj.load(@cafmal_resource)
   end
 
-  def create
-    @title = "Create #{@resource.singularize.titleize}"
-    resource_params = params_validate
-    save = @cafmal_resource.create(resource_params)
-    @json_errors = JSON.parse(save)
-    @json_errors = handle_errors_by_status_code(@json_errors)
-    if @json_errors.blank? || @json_errors.has_key?("id")
-      flash[:success] = "#{@resource.singularize.titleize} successfully created."
-      redirect_to resources_index_path(@resource)
-    else
-      render action: :new
-    end
-  end
-
   def confirm_destroy
     @title = "Confirm destruction of #{@resource.singularize.titleize}"
     id = params[:id]
@@ -86,22 +97,10 @@ class ResourcesController < AuthenticationController
     @resource_json = Oj.load(@cafmal_resource)
   end
 
-  def destroy
-    @title = "Destroy #{@resource.singularize.titleize}"
-    resource_params = params_validate
-    save = @cafmal_resource.destroy(resource_params)
-    @json_errors = JSON.parse(save)
-    @json_errors = handle_errors_by_status_code(@json_errors)
-    if @json_errors.blank?
-      flash[:success] = "#{@resource.singularize.titleize} successfully destroyed."
-      redirect_to resources_index_path(@resource)
-    else
-      render action: :new
-    end
-  end
 
   private
-    def handle_errors_by_status_code(json_errors)
+    def handle_error_messages(save_result)
+      json_errors = JSON.parse(save_result.body)
       unless json_errors.nil?
         if json_errors.key?("exception")
           exception = json_errors["exception"]
@@ -116,13 +115,9 @@ class ResourcesController < AuthenticationController
     def set_resource
       @resource_json = nil
       @resource = params[:resource]
-      begin
-        @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
-        @form_structure = JSON.parse(@cafmal_resource.new)
-      rescue Exception => e
-        flash[:error] = "API is unavailable."
-        redirect_back(fallback_location: :back)
-      end
+      @cafmal_resource = "Cafmal::#{@resource.singularize.capitalize}".constantize.new(Rails.application.secrets.cafmal_api_url, cookies[:cafmal_api_token])
+      new_cafmal_resouce = @cafmal_resource.new
+      @form_structure = JSON.parse(new_cafmal_resouce.body)
     end
 
     def params_validate

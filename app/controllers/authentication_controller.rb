@@ -2,12 +2,6 @@ class AuthenticationController < ApplicationController
   before_action :authenticate_user!
   before_action :check_expiration
 
-  def check_expiration
-    if current_user.signed_in?
-      flash[:error]  = "Less than 15 minutes til logout." if current_user.minutes_til_expiration <= 15
-    end
-  end
-
   def login
     @title = "Login"
   end
@@ -34,11 +28,8 @@ class AuthenticationController < ApplicationController
 
   def auth
     @cafmal_auth = Cafmal::Auth.new(Rails.application.secrets.cafmal_api_url)
-    begin
-      @cafmal_auth.login(user_params[:email], user_params[:password])
-    rescue Exception => e
-      flash[:alert] = "Auth failed, API is unavailable."
-    end
+
+    @cafmal_auth.login(user_params[:email], user_params[:password])
 
     unless @cafmal_auth.token.nil?
       flash[:notice] = "Successfully logged in"
@@ -53,6 +44,12 @@ class AuthenticationController < ApplicationController
   private
     def authenticate_user!
       redirect_to login_path if !current_user.signed_in? && params[:controller] != "authentication"
+    end
+
+    def check_expiration
+      if current_user.signed_in?
+        flash[:error]  = "Less than 15 minutes til logout." if current_user.minutes_til_expiration <= 15
+      end
     end
 
     def user_params

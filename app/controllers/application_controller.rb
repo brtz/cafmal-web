@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  rescue_from ::Exception, with: :error_occurred
+
   protect_from_forgery with: :exception
   before_action :set_default_page_title
   before_action :authenticate_user!
@@ -18,20 +20,26 @@ class ApplicationController < ActionController::Base
   private
 
     def set_default_page_title
-      @title = "#{params[:controller].titleize} - #{params[:action].titleize}"
+      @title = "#{controller_name.titleize} - #{action_name.titleize}"
     end
 
     def cafmal_request_expired?
-      unless @cafmal_auth.nil?
-        @cafmal_auth.expired?
-      end
+      @cafmal_auth.expired? unless @cafmal_auth.nil?
     end
 
     def authenticate_user!
-      if !current_user.signed_in? && params[:controller] != "authentication" && cafmal_request_expired?
+      if !current_user.signed_in? && controller_name != "authentication" && cafmal_request_expired?
         delete_cafmal_api_token
         flash[:alert] = "Your session has expired."
         redirect_to login_path
       end
+    end
+
+  protected
+
+    def error_occurred(exception)
+      flash[:error] = exception.message + " - " + exception.backtrace.first
+      redirect_back(fallback_location: :back)
+      return
     end
 end
