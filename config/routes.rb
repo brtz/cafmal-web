@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   scope :sites, controller: :sites do
     get 'about', as: :about
+    get 'error', as: :error
   end
 
   namespace :resources, path: "/" do

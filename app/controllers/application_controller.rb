@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
     def error_occurred(exception)
       flash[:error] = exception.message + " - " + exception.backtrace.first
-      redirect_back(fallback_location: dashboard_path)
+      redirect_back(fallback_location: error_path)
       return
     end
 end
