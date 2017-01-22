@@ -8,4 +8,5 @@ docker-compose.yml
 log/*.log
 .rubocop.yml
 .ruby-version
+start_dev.sh
 test/
