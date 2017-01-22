@@ -1,0 +1,9 @@
+.dockerignore
+Dockerfile
+docker-compose.yml
+log/*.log
+doc/
+.rubocop.yml
+test/
+.idea/
+
