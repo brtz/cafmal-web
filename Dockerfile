@@ -22,7 +22,7 @@ RUN bundle install --clean
 RUN apk del --purge build-base linux-headers ruby-dev
 ADD . $APP_HOME
 
-# chown files for www-data write access. unicorn needs Gemfile.lock
+# chown files for www-data write access. webserver needs Gemfile.lock
 RUN chown -R www-data:www-data Gemfile.lock log/ public/ tmp/
 
 USER www-data
@@ -30,4 +30,4 @@ USER www-data
 RUN bundle exec rake assets:precompile
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["unicorn", "-l", "0.0.0.0:3000", "-c", "./config/unicorn.rb"]
+CMD ["puma", "-b", "tcp://0.0.0.0:3000"]
